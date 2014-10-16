@@ -3,12 +3,13 @@
 //===================================BASE SETUP======================================
 // Create objects for all the dependency modules
 var express = require('express');
-var connect = require('connect');
-var bodyParser = require('body-parser');
-var morgan = require('morgan');
-var mongoose   = require('mongoose');
-var app = express();
-var port = 8182;
+
+var bodyParser = require('body-parser'); // extracting the contents of json
+var morgan = require('morgan');        // logging
+var mongoose   = require('mongoose');  // DB connection
+
+var app = express();  // creating the express instance.
+var port = 8182;  // If you change this , then change the port in sendJson.py as well.
 
 var register = require('./config/register');
 
@@ -19,21 +20,21 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-//DB connection
+//Cloud DB connection - log in to mongolab.com to see.
 var username = "mobdb"
 var password = "mobdb";
 var address = '@ds043220.mongolab.com:43220/mobile';
 var url = 'mongodb://' + username + ':' + password + address;
 
 
-var mongoose = require('mongoose');
+//Connect DB
 mongoose.connect(url);
 
-var User     = require('./app/models/user');
+
 
 
 //==================================ROUTE SETUP=====================================
-//require('./routes/routes.js') (app);
+
 var router = express.Router();
 
 // middleware to use for all requests
@@ -43,11 +44,12 @@ console.log('Pre-processing happening.');
 next();
 });
 
+// This is just for testing. Android Client shall not handle this.
 router.get('/', function(req, res) {
     res.json({ message: '!! welcome to our LibTrac !!' });   
 });
 
-
+// Begin : Registration
 router.route('/register')
 
 	.post(function(req, res){
@@ -61,12 +63,15 @@ router.route('/register')
 });
 
 
-// REGISTER OUR ROUTES -------------------------------
-// all of our routes will be prefixed with /api
+// ---------------------------ALL OUR ROUTES SHALL BE HERE -------------------------------
+
+
+// all of our routes will be prefixed with /
 app.use('/', router);
 
 
 // START THE SERVER
 // =============================================================================
+
 app.listen(port);
 console.log('The server runs on port ' + port);
