@@ -9,7 +9,7 @@ var morgan = require('morgan');        // logging
 var mongoose   = require('mongoose');  // DB connection
 
 var app = express();  // creating the express instance.
-var port = 8182;  // If you change this , then change the port in sendJson.py as well.
+var port = 7172;  // If you change this , then change the port in sendJson.py as well.
 
 var register = require('./config/register');
 
