@@ -1,3 +1,5 @@
+var friendSchema = require('../schemas/friendfinder');
+
 exports.getfriendListofUser = function(req, res){
     var nick  = req.param('nick');
     var  fList = [];
