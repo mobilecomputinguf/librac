@@ -13,4 +13,4 @@ var UFL  = schema({
 	}
 });
 
-module.exports = mongoose.model('Friend', 'Friend');
+module.exports = mongoose.model('UFL', UFL);
